@@ -1,0 +1,49 @@
+{
+  "id": "bic-bpmn-assistent-v2",
+  "name": "BIC BPMN-Assistent v2",
+  "base_model_id": "${BPMN_BASISMODELL}",
+  "meta": {
+    "description": "Erstellt einfache BPMN-Modelle für BIC Process Design und prüft ihre XML-Syntax per Tool.",
+    "capabilities": {
+      "file_context": true,
+      "vision": true,
+      "file_upload": true,
+      "web_search": false,
+      "image_generation": true,
+      "code_interpreter": true,
+      "terminal": false,
+      "citations": true,
+      "status_updates": true,
+      "usage": true,
+      "memory": false,
+      "builtin_tools": true
+    },
+    "toolIds": [
+      "validate_bpmn_xml"
+    ],
+    "actionIds": [
+      "bpmn_vorschau"
+    ],
+    "builtinTools": {
+      "time": true,
+      "memory": true,
+      "chats": false,
+      "notes": false,
+      "knowledge": false,
+      "channels": false,
+      "web_search": false,
+      "image_generation": true,
+      "code_interpreter": true,
+      "calendar": false,
+      "automations": false,
+      "subagents": false,
+      "skills": false
+    }
+  },
+  "params": {
+    "custom_params": {
+      "reasoning": "{\"effort\":\"high\"}"
+    }
+  },
+  "is_active": true
+}
