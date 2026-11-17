@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SAMPLE = (ROOT / "samples" / "rechnungsfreigabe.bpmn").read_text(encoding="utf-8")
+REFERENZ = (ROOT / "samples" / "reklamationsbearbeitung.bpmn").read_text(encoding="utf-8")
 
 _spec = importlib.util.spec_from_file_location(
     "bpmn_vorschau", ROOT / "openwebui" / "bpmn_vorschau.py"
@@ -152,3 +153,15 @@ def test_vendored_bundle_matches_checksum_and_embeds():
     page = events[-1]["data"]["embeds"][0]
     assert "bpmn-navigated-viewer v18.33.0" in page
     assert "<script src=" not in page
+
+
+def test_reference_model_with_message_flows():
+    text = f"Geprüft.\n\n```xml\n{REFERENZ}\n```\n\nDateiname: reklamationsbearbeitung.bpmn"
+    _, events = run_action(body_with(text))
+    assert payload_of(events[0]["data"]["embeds"][0])["xml"] == REFERENZ.strip()
+
+
+def test_plain_xml_without_code_block():
+    # "nur XML": Ausgabe ohne Markdown-Codeblock und ohne Begleittext
+    _, events = run_action(body_with(REFERENZ))
+    assert payload_of(events[0]["data"]["embeds"][0])["xml"] == REFERENZ.strip()
