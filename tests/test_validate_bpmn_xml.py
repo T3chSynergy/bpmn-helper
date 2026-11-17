@@ -11,7 +11,7 @@ VALID = (ROOT / "samples" / "reklamationsbearbeitung.bpmn").read_text(encoding="
 WITH_LANES = (ROOT / "samples" / "rechnungsfreigabe.bpmn").read_text(encoding="utf-8")
 
 _spec = importlib.util.spec_from_file_location(
-    "validate_bpmn_xml", ROOT / "openwebui" / "validate_bpmn_xml.py"
+    "validate_bpmn_xml", ROOT / "tools" / "validate_bpmn_xml.py"
 )
 validator = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(validator)

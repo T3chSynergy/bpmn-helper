@@ -9,7 +9,7 @@ SAMPLE = (ROOT / "samples" / "rechnungsfreigabe.bpmn").read_text(encoding="utf-8
 REFERENZ = (ROOT / "samples" / "reklamationsbearbeitung.bpmn").read_text(encoding="utf-8")
 
 _spec = importlib.util.spec_from_file_location(
-    "bpmn_vorschau", ROOT / "openwebui" / "bpmn_vorschau.py"
+    "bpmn_vorschau", ROOT / "functions" / "actions" / "bpmn_vorschau.py"
 )
 bpmn_vorschau = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(bpmn_vorschau)
