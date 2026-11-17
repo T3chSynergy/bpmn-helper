@@ -37,7 +37,9 @@ Die Anzeige nutzt [bpmn-js](https://bpmn.io/toolkit/bpmn-js/), getestet mit Vers
 
 Beim Einbetten wächst jede gespeicherte Vorschau um etwa 200 KB. Für den Dauerbetrieb ist der interne Webserver die bessere Wahl.
 
-Die benötigte Datei heißt `bpmn-navigated-viewer.production.min.js` und liegt im npm-Paket `bpmn-js` unter `dist/`.
+Die benötigte Datei liegt im Repo unter [`vendor/bpmn-js/18.33.0/`](vendor/bpmn-js/README.md), zusammen mit Lizenz und Prüfsumme. Für den internen Webserver diese Datei dort ablegen, zum Beispiel unter `https://intranet.example/static/bpmn-js/18.33.0/bpmn-navigated-viewer.production.min.js`, und die Adresse in `bpmn_js_url` eintragen. Die Versionsnummer im Pfad sorgt dafür, dass Browser nach einem Update nicht die alte Datei aus dem Cache nehmen.
+
+Zum Einbetten kann `bpmn_js_url` auch auf diese Datei im Dateisystem des Open-WebUI-Servers zeigen, etwa wenn das Repo dort ausgecheckt oder die Datei in den Container gemountet ist.
 
 Die Höhe der Diagrammfläche stellt `height` ein (Standard 480 Pixel).
 

@@ -135,3 +135,20 @@ def test_inline_bundle_falls_back_when_unreadable(tmp_path):
     assert events[0]["data"]["type"] == "warning"
     page = events[1]["data"]["embeds"][0]
     assert f'<script src="{bpmn_vorschau.DEFAULT_BPMN_JS_URL}"></script>' in page
+
+
+def test_vendored_bundle_matches_checksum_and_embeds():
+    import hashlib
+
+    folder = ROOT / "vendor" / "bpmn-js" / "18.33.0"
+    bundle = folder / "bpmn-navigated-viewer.production.min.js"
+    expected = (folder / "SHA256SUMS").read_text(encoding="utf-8").split()[0]
+    assert hashlib.sha256(bundle.read_bytes()).hexdigest() == expected
+    assert "18.33.0" in bpmn_vorschau.DEFAULT_BPMN_JS_URL
+
+    _, events = run_action(
+        body_with(SAMPLE), {"bpmn_js_inline": True, "bpmn_js_url": str(bundle)}
+    )
+    page = events[-1]["data"]["embeds"][0]
+    assert "bpmn-navigated-viewer v18.33.0" in page
+    assert "<script src=" not in page
